@@ -48,9 +48,6 @@ cd backend
 # Install dependencies
 npm install
 
-# Create .env file
-echo "MONGO_URI=mongodb://127.0.0.1:27017/ShopingcardDB\nPORT=5000" > .env
-
 # Start server
 npm start
 ```
