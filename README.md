@@ -172,16 +172,20 @@ npm test         # Run tests
 
 ## 🔐 Environment Variables
 
-### Backend (.env)
+> ⚠️ **Important**: Never commit actual environment variables. Create a `.env.example` file instead.
+
+### Backend (.env.example)
 ```
-MONGO_URI=mongodb://127.0.0.1:27017/ShopingcardDB
-PORT=5000
+MONGO_URI=mongodb://[username]:[password]@[host]:[port]/[database]
+PORT=[your_port]
 ```
 
-### Frontend (.env)
+### Frontend (.env.example)
 ```
-VITE_API_URL=http://localhost:5000/api
+VITE_API_URL=http://[backend_url]/api
 ```
+
+> Note: Copy `.env.example` to `.env` and fill in your actual values.
 
 ## 🚨 Error Handling
 - Frontend: Axios interceptors + Context error state
