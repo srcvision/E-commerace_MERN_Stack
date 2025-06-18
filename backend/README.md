@@ -6,6 +6,7 @@
 - [API Endpoints](#api-endpoints)
 - [Database Models](#database-models)
 - [File Connectivity](#file-connectivity)
+- [Security Measures](#security-measures)
 
 ## Setup and Installation 🚀
 
@@ -16,8 +17,12 @@ npm install
 ```
 3. Set up environment variables in `.env`:
 ```env
-MONGO_URI=mongodb://127.0.0.1:27017/ShopingcardDB
+MONGO_URI=your_mongodb_connection_string
 PORT=5000
+JWT_SECRET=your_secret_key
+NODE_ENV=development
+RATE_LIMIT=100
+CORS_ORIGIN=http://localhost:3000
 ```
 4. Run the server:
 ```bash
@@ -45,17 +50,17 @@ backend/
 ## API Endpoints 🛣️
 
 ### Products API 📦
-- `POST /api/products` - Create new product
-- `GET /api/products` - Get all products
-- `GET /api/products/:id` - Get product by ID
-- `PUT /api/products/:id` - Update product
-- `DELETE /api/products/:id` - Delete product
+- `POST /api/products` - Create new product (Admin only)
+- `GET /api/products` - Get all products (Public)
+- `GET /api/products/:id` - Get product by ID (Public)
+- `PUT /api/products/:id` - Update product (Admin only)
+- `DELETE /api/products/:id` - Delete product (Admin only)
 
 ### Cart API 🛒
-- `POST /api/cart` - Add item to cart
-- `GET /api/cart` - Get cart items
-- `PUT /api/cart` - Update cart item quantity
-- `DELETE /api/cart/:productId` - Remove item from cart
+- `POST /api/cart` - Add item to cart (Authenticated)
+- `GET /api/cart` - Get cart items (Authenticated)
+- `PUT /api/cart` - Update cart item quantity (Authenticated)
+- `DELETE /api/cart/:productId` - Remove item from cart (Authenticated)
 
 ## Database Models 💾
 
@@ -116,3 +121,28 @@ Running in development mode with nodemon:
 ```bash
 npm start
 ```
+
+## Security Measures 🔒
+
+### Authentication
+- All API endpoints require JWT authentication except:
+  - `POST /api/auth/login`
+  - `POST /api/auth/register`
+- Include JWT token in Authorization header:
+  `Authorization: Bearer <token>`
+
+### Environment Variables
+Store these securely and never commit to version control:
+- `JWT_SECRET`: Secret key for JWT tokens
+- `MONGO_URI`: Database connection string
+- `NODE_ENV`: Environment mode
+- `CORS_ORIGIN`: Allowed origins
+- `RATE_LIMIT`: API rate limit per IP
+
+### API Security
+- Rate limiting enabled
+- CORS protection
+- Request validation
+- XSS prevention
+- Input sanitization
+- Password hashing
